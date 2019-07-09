@@ -1,3 +1,5 @@
+USE DBSPJC;
+
 delimiter //
 DROP TRIGGER IF EXISTS DBSPJC.idadeUpdate; //
 
