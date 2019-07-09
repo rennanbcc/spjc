@@ -14,7 +14,7 @@ begin
     
     select sala INTO proxSala
 	from DBSPJC.Processo ps JOIN DBSPJC.Audiencia aud ON ps.npu = aud.processo
-	where (aud.hora= '13:00:00' OR aud.hora = '14:00:00' OR aud.hora = '15:00:00' OR aud.hora= '16:00:00' OR aud.hora = '17:00:00' OR aud.hora = '18:00:00');
+	where (DATEDIFF(HOUR,current_time(),aud.hora));
 	   
 	return proxSala;
 
