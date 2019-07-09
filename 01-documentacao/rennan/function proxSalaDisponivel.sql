@@ -21,5 +21,3 @@ begin
 	return proxSala;
 
 end; :
-
-select current_time();
