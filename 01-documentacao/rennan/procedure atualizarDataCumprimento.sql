@@ -1,3 +1,5 @@
+USE DBSPJC;
+
 delimiter //
 DROP PROCEDURE IF EXISTS DBSPJC.atualizarDataCumprimento //
 
