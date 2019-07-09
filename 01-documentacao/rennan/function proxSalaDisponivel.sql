@@ -19,5 +19,3 @@ begin
 	return proxSala;
 
 end; :
-
-select proxSalaDisponivel('00106948920198170001');
