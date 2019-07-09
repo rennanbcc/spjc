@@ -7,7 +7,6 @@ DROP FUNCTION IF EXISTS DBSPJC.proxSalaDisponivel //
 delimiter :
 create function DBSPJC.proxSalaDisponivel(npu VARCHAR(20)) 
 returns varchar(20)
-deterministic
 begin
 	declare currentt time;
 	declare proxSala varchar(20);
