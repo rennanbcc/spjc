@@ -1,6 +1,3 @@
-USE DBSPJC;
-
-
 delimiter //
 DROP FUNCTION IF EXISTS DBSPJC.proxSalaDisponivel //
 
