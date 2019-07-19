@@ -5,12 +5,13 @@ create procedure DBSPJC.atualizarDataCumprimento(IN pNpu varchar(20))
 begin
 	declare nNumeroParcelas INTEGER;
     declare nNumeroParcelasPagas INTEGER;
-    select numeroParcelas, numeroParcelasPagas into nNumeroParcelas,nNumeroParcelasPagas
+    declare npago BOOLEAN;
+    select numeroParcelas, numeroParcelasPagas, pago into nNumeroParcelas,nNumeroParcelasPagas,npago
     from DBSPJC.Execucao ex
     where ex.id = pNpu;
     
     
-	if (nNumeroParcelas = nNumeroParcelasPagas) then 
+	if (nNumeroParcelas = nNumeroParcelasPagas AND npago = FALSE) then 
 	update DBSPJC.Execucao ex
     set ex.pago = true
     where ex.id = pNpu;
