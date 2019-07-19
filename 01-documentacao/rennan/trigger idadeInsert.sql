@@ -2,21 +2,11 @@ delimiter //
 DROP TRIGGER IF EXISTS DBSPJC.idadeInsert; //
 
 create trigger DBSPJC.idadeInsert
-before insert on DBSPJC.Testemunha
+before INSERT on DBSPJC.ProcessoTestemunha
 for each row
 begin
-	update DBSPJC.Testemunha
+	update DBSPJC.Testemunha ex
     set idade = (
-    CASE 
-        WHEN 
-        MONTH(GETDATE()) > MONTH(dataNascimento) -- *1
-        OR
-        -- *2
-        (
-            MONTH(GETDATE()) = MONTH(dataNascimento) 
-            AND DAY(GETDATE()) >= DAY(dataNascimento) 
-        )
-    THEN DATEDIFF(YEAR, dataNascimento, GETDATE()) 
-    ELSE DATEDIFF(YEAR, dataNascimento, GETDATE()) -1 END
-);
+		 if(MONTH(CURDATE()) > MONTH(ex.dataNascimento) OR (MONTH(CURDATE()) = MONTH(ex.dataNascimento) AND DAY(CURDATE()) >= DAY(ex.dataNascimento)),(YEAR(CURDATE())-YEAR(ex.dataNascimento)), ((YEAR(CURDATE())-YEAR(ex.dataNascimento))-1)));
+       
 end; //
