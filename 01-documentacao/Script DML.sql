@@ -80,7 +80,7 @@ INSERT INTO Magistrado (cpf,endereco,matricula,nome,numeroEndereco,senha) VALUES
 ('74745757578', 51240420, 1893647, 'Thiago Mello Arruda', '6789','123456');
 
 INSERT INTO Servidor (cpf,dataFim,dataInicio,endereco,juizado,matricula,nome,numeroEndereco,senha,tipoServidor) VALUES 
-('98764736373', '2021-06-11', '2019-06-10', 51240420, NULL, 1843556,'Florentina de Jesus','4567','12345678','A'),
+('98764736373', '2021-06-11', '2019-06-10', 51240420, NULL, 1843556,'Florentina de Jesus','12345678','12345678','A'),
 ('00394575873', '2021-07-10', '2019-06-10', 50400110, NULL, 1867890,'Paula Fernandes','45','12345678','T'),
 ('02198374484', '2021-01-12', '2019-06-10', 50000000, NULL, 1835645,'Moises Dias','345','12345678','T'),
 ('03576768574', '2025-10-10', '2019-06-10', 50000000, NULL, 2030393,'Lucas Paes','1','18936475','C'),
@@ -89,14 +89,14 @@ INSERT INTO Servidor (cpf,dataFim,dataInicio,endereco,juizado,matricula,nome,num
 ('46473646353', '2023-05-02', '2019-06-10', 50400110, NULL, 1678221,'Joao Batista','1783','123456789','T'),
 ('74857574774', '2023-09-01', '2019-06-10', 50920135, NULL, 1283746,'Marcos Silva','1','18936475','C');
 
-INSERT INTO  CursoEspecializacao (id,servidor,dataConclusao,nivel,nome,cargaHoraria) VALUE 
-(1, '84637673636', '2017-06-09', 'superior', 'Contabilidade',68), 
-(2, '84637673636', '2010-06-09', 'superior', 'Administracao',60), 
-(3, '98764736373', '2003-11-01', 'superior', 'Contabilidade',120); 
+INSERT INTO  CursoEspecializacao (servidor, dataConclusao, nivel, nome, cargaHoraria) VALUES 
+('84637673636', '2017-06-09', 'superior', 'Contabilidade',68), 
+('84637673636', '2010-06-09', 'superior', 'Administracao',60), 
+('98764736373', '2003-11-01', 'superior', 'Contabilidade',120); 
 
-INSERT INTO Juizado (id,dataFim,dataInicio,endereco,magistrado,nome,numeroEndereco,servidorChefe,telefone) VALUES
-(1, '2020-06-10','2019-06-10',50000000,'71874846073','Juizados Civeis 1G','45C','98764736373','081 99991-8752'),
-(2, '2020-06-10','2019-06-10',50000000,'09457374848','Juizados Civeis 2G','45C','84637673636','081 99991-6475');
+INSERT INTO Juizado (id,dataFim,dataInicio,endereco,magistrado,nome,numeroEndereco,servidorChefe,telefone, salaAudiencia) VALUES
+(1, '2020-06-10','2019-06-10',50000000,'71874846073','Juizados Civeis 1G','45C','98764736373','081 99991-8752', 'Sala 20'),
+(2, '2020-06-10','2019-06-10',50000000,'09457374848','Juizados Civeis 2G','45C','84637673636','081 99991-6475', 'Sala 21');
 
 UPDATE Servidor SET juizado=1 WHERE cpf= '98764736373';
 UPDATE Servidor SET juizado=1 WHERE cpf= '00394575873';
@@ -179,25 +179,27 @@ INSERT INTO ProcessoRepresentante (processo,representante) VALUES
 ('00004646820198170002', '01234561231'),
 ('00445554520198170002', '02132546548');
 
-INSERT INTO Pauta (id,dataAgendamento,estadoPauta,qtdeProcesso) VALUES 
-(1, '2019-06-10', 1, 2),
-(2, '2019-06-15', 1, 2),
-(3, '2019-06-18', 1, 1),
-(4, '2019-06-21', 1, 1),
-(5, '2019-06-30', 1, 1),
-(6, '2019-07-11', 1, 0),
-(7, '2019-08-10', 1, 0);
+INSERT INTO Pauta (id,juizado,dataAgendamento,estadoPauta,qtdeProcesso) VALUES 
+(1, 2, '2019-06-10', 1, 2),
+(2, 2, '2019-06-15', 1, 3),
+(3, 1, '2019-06-18', 1, 2),
+(4, 1, '2019-06-21', 1, 2),
+(5, 2, '2019-06-30', 1, 1),
+(6, 2, '2019-07-11', 1, 0),
+(7, 2, '2019-08-10', 1, 1);
 
 INSERT INTO Audiencia (id,pauta,processo,magistrado,servidor,estadoAudiencia,situacao,tipo,hora,sala) VALUES 
-(1, 1, '00051564620198170002', NULL,'03576768574',1,'C','C','13:00:00', 'sala 2'),
-(2, 2, '00051564620198170002', '71874846073', NULL,1,'C','C','13:00:00', 'sala 2'),
-(3, 3, '00123948920198170001', NULL,'03576768574',1,'C','C','13:00:00', 'sala 2'),
-(4, 4, '00123948920198170001', '71874846073', NULL,1,'C','C','13:00:00', 'sala 2'),
-(5, 5, '00536456520198170002', '09457374848', NULL,1,'I','I','13:00:00', 'sala 2'),
-(6, 1, '00548648220198170002', '09457374848', NULL,1,'I','I','14:00:00', 'sala 2'),
-(7, 2, '00445554520198170002', '09457374848', NULL,1,'I','I','14:00:00', 'sala 2'),
-(8, 2, '00004646820198170002', '09457374848', NULL,1,'I','I','15:00:00', 'sala 2'),
-(9, 7, '00051564620198170002', '71874846073', NULL,1,'C','C','13:00:00', 'sala 2');
+(1, 1, '00051564620198170002', NULL,'03576768574',1,'C','C','13:00:00', 'sala 21'),
+(2, 2, '00051564620198170002', '71874846073', NULL,1,'C','C','13:00:00', 'sala 21'),
+(3, 3, '00123948920198170001', NULL,'03576768574',1,'C','C','13:00:00', 'sala 20'),
+(4, 4, '00123948920198170001', '71874846073', NULL,1,'C','C','13:00:00', 'sala 20'),
+(5, 5, '00536456520198170002', '09457374848', NULL,1,'I','I','13:00:00', 'sala 21'),
+(6, 1, '00548648220198170002', '09457374848', NULL,1,'I','I','14:00:00', 'sala 21'),
+(7, 2, '00445554520198170002', '09457374848', NULL,1,'I','I','14:00:00', 'sala 21'),
+(8, 2, '00004646820198170002', '09457374848', NULL,1,'I','I','15:00:00', 'sala 21'),
+(9, 7, '00051564620198170002', '71874846073', NULL,1,'C','C','13:00:00', 'sala 21'),
+(10, 3, '00145656920198170001', '09457374848', NULL,1,'I','I','14:00:00', 'sala 20'),
+(11, 4, '00012254520198170001', '71874846073', NULL,1,'C','C','14:00:00', 'sala 20');
 
 INSERT INTO Testemunha(id,nome, email, numeroEndereco, polo, telefone, dataNascimento ) VALUES 
 (1,'Ronald Motta','rmotta@gtec.com.br','45C','A','81 99989-0987','1988-10-10'),
