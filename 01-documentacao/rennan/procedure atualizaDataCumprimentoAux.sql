@@ -10,10 +10,9 @@ begin
     from DBSPJC.Execucao ex
     where ex.id = pNpu;
     
-    
 	if (nNumeroParcelas = nNumeroParcelasPagas AND npago = FALSE) then 
 	update DBSPJC.Execucao ex
-    set ex.pago = true
+    set ex.pago = true , ex.dataCumprimento = curdate()
     where ex.id = pNpu;
     end if;
 end $
