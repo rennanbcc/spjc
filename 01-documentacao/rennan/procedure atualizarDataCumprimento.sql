@@ -6,23 +6,34 @@ begin
 	declare done int default 0;
     
     declare nNpu1 varchar(20);
-    declare nvalorTotalDivida DECIMAL(10,2);
-    declare nPago bool;
-    declare nvalorPago DECIMAL(10,2);
+    declare nnumeroParcelas INTEGER UNSIGNED;
+    declare npago bool;
+    declare nnumeroParcelasPagas INTEGER UNSIGNED;
     
-    declare dproccur cursor for select valorTotalDivida, nvalorPago, nPago from DBSPJC.Execucao ex, DBSPJC.Processo pr where processo= pNpu;
+    declare dproccur cursor for select numeroParcelas, numeroParcelasPagas, pago from DBSPJC.Execucao ex INNER JOIN DBSPJC.Processo pr ON ex.processo = pNpu; 
     declare continue handler for not found set done= 1;
     
     open dproccur;
 
     repeat
-		fetch dproccur into nvalorPago, nvalorTotalDivida, nPago;
-		if (nvalorPago = nvalorTotalDivida && nPago = false) then
-			UPDATE DBSPJC.Execucao SET dataCumprimento = curdate(), nPago= true WHERE npu= pNpu;
-		end if;         
+		fetch dproccur into nnumeroParcelas, nnumeroParcelasPagas, npago;
+		if (nnumeroParcelasPagas = nnumeroParcelas && npago = false) then
+			UPDATE DBSPJC.Execucao
+            SET dataCumprimento = curdate(), pago = true
+            WHERE processo = pNpu;
+        else begin end; 
+        end if;
 	until done
     end repeat;	
     
     close dproccur;
     
+    
 end; //
+
+# select * from execucao;
+
+# call DBSPJC.atualizarDataCumprimento('00106948920198170001')
+
+# INSERT INTO Execucao (id,processo,numeroParcelas,dataRegistro,valorTotalDivida,numeroParcelasPagas)VALUES(5,'00106948920198170001',8,'2024-06-11',18000.00,8);
+ 
